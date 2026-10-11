@@ -1,0 +1,159 @@
+================================================================================
+                    NIFTY EXPIRY - QUICK FIX
+================================================================================
+
+PROBLEM:
+  NIFTY25JAN26FUT is EXPIRED (January 2026 is in the past)
+  Current date: September 2026
+
+SOLUTION:
+  Use NIFTY25SEP26FUT (Current month - September 2026)
+
+================================================================================
+                    WHAT TO USE NOW
+================================================================================
+
+CURRENT EXPIRY (September 2026):
+  NIFTY25SEP26FUT
+
+NEXT EXPIRY (October 2026):
+  NIFTY25OCT26FUT
+
+FURTHER EXPIRIES:
+  NIFTY25NOV26FUT - November 2026
+  NIFTY25DEC26FUT - December 2026
+  NIFTY25JAN27FUT - January 2027
+
+================================================================================
+                    HOW TO UPDATE
+================================================================================
+
+OPTION 1: Update Script (Recommended)
+
+Edit: D:\OpenAlgo\openalgo\strategies\examples\continuous_trading_bot_nifty.py
+
+Change line 68 from:
+  SYMBOL = os.getenv('SYMBOL', 'NIFTY25JAN26FUT')
+
+To:
+  SYMBOL = os.getenv('SYMBOL', 'NIFTY25SEP26FUT')
+
+Save and run:
+  python strategies/examples/continuous_trading_bot_nifty.py
+
+================================================================================
+
+OPTION 2: Use Environment Variable
+
+Windows PowerShell:
+  $env:SYMBOL = "NIFTY25SEP26FUT"
+  python strategies/examples/continuous_trading_bot_nifty.py
+
+Windows Command Prompt:
+  set SYMBOL=NIFTY25SEP26FUT
+  python strategies/examples/continuous_trading_bot_nifty.py
+
+Linux/Mac:
+  export SYMBOL="NIFTY25SEP26FUT"
+  python strategies/examples/continuous_trading_bot_nifty.py
+
+================================================================================
+
+OPTION 3: Add to .env File
+
+Edit: D:\OpenAlgo\openalgo\.env
+
+Add:
+  NIFTY_SYMBOL=NIFTY25SEP26FUT
+
+Then in script, change:
+  SYMBOL = os.getenv('NIFTY_SYMBOL', 'NIFTY25SEP26FUT')
+
+================================================================================
+                    NIFTY EXPIRY SCHEDULE 2026
+================================================================================
+
+Month       Expiry Date    Symbol                Status
+-------     -----------    ------                ------
+January     25 Jan         NIFTY25JAN26FUT       ❌ EXPIRED
+February    25 Feb         NIFTY25FEB26FUT       ❌ EXPIRED
+March       25 Mar         NIFTY25MAR26FUT       ❌ EXPIRED
+April       25 Apr         NIFTY25APR26FUT       ❌ EXPIRED
+May         25 May         NIFTY25MAY26FUT       ❌ EXPIRED
+June        25 Jun         NIFTY25JUN26FUT       ❌ EXPIRED
+July        25 Jul         NIFTY25JUL26FUT       ❌ EXPIRED
+August      25 Aug         NIFTY25AUG26FUT       ❌ EXPIRED
+September   25 Sep         NIFTY25SEP26FUT       ✅ CURRENT
+October     25 Oct         NIFTY25OCT26FUT       ✅ NEXT
+November    25 Nov         NIFTY25NOV26FUT       ✅ FUTURE
+December    25 Dec         NIFTY25DEC26FUT       ✅ FUTURE
+
+================================================================================
+                    WHY EXPIRY MATTERS
+================================================================================
+
+EXPIRED CONTRACTS (❌):
+  - Cannot place new orders
+  - Cannot trade
+  - No liquidity
+  - Contract is settled
+
+ACTIVE CONTRACTS (✅):
+  - Can place orders
+  - Good liquidity
+  - Can trade freely
+  - Expiry is in future
+
+================================================================================
+                    LIQUIDITY RANKING
+================================================================================
+
+HIGHEST LIQUIDITY:
+  1. NIFTY25SEP26FUT (Current month) - BEST FOR TRADING
+  2. NIFTY25OCT26FUT (Next month)
+  3. NIFTY25NOV26FUT (Further out)
+
+USE CURRENT MONTH FOR:
+  ✓ Day trading
+  ✓ Scalping
+  ✓ High-frequency trading
+  ✓ Best spreads
+
+================================================================================
+                    QUICK COMMANDS
+================================================================================
+
+VERIFY CURRENT EXPIRY:
+  Open: http://127.0.0.1:5000
+  Go to: Trading or Market Data
+  Search: NIFTY
+  See: Available expiries
+
+UPDATE SCRIPT:
+  1. Open continuous_trading_bot_nifty.py
+  2. Find: SYMBOL = os.getenv('SYMBOL', 'NIFTY25JAN26FUT')
+  3. Change to: SYMBOL = os.getenv('SYMBOL', 'NIFTY25SEP26FUT')
+  4. Save file
+  5. Run: python strategies/examples/continuous_trading_bot_nifty.py
+
+================================================================================
+                    EXPECTED OUTPUT
+================================================================================
+
+Before Fix (FAILS):
+  [ERROR] BUY order failed: Symbol not found
+  [ERROR] SELL order failed: Symbol not found
+
+After Fix (WORKS):
+  [PRICE] Current LTP: Rs.25950.50
+  [CALC] Buy Price: Rs.25945.50 (Current - 5)
+  [CALC] Sell Price: Rs.25955.50 (Current + 5)
+  [OK] BUY order placed!
+  [OK] SELL order placed!
+
+================================================================================
+
+STATUS: ✅ Script already updated to use NIFTY25SEP26FUT
+CREATED: 2026-09-15
+
+================================================================================

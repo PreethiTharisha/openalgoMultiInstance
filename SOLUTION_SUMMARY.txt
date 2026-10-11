@@ -1,0 +1,215 @@
+================================================================================
+                    OPENALGO API KEY ERROR - SOLUTION
+================================================================================
+
+YOUR ERROR:
+-----------
+HTTP 400: {"message":{"apikey":["Length must be between 1 and 256."]},"status":"error"}
+
+ROOT CAUSE:
+-----------
+You're using placeholder API key (wxyz123) instead of real OpenAlgo API key
+(64-character hexadecimal string)
+
+================================================================================
+                            QUICK FIX (5 MINUTES)
+================================================================================
+
+STEP 1: Get Your API Key
+------------------------
+1. Open: http://127.0.0.1:5000/apikey
+2. Copy the 64-character key
+3. Example: 0aac0bae37a2458241ff0405084b17c54368ea461b9ea5e65a2a44e2fae9a165
+
+STEP 2: Set Environment Variable
+---------------------------------
+Windows PowerShell:
+  $env:OPENALGO_API_KEY = "your_64_char_key"
+
+Windows Command Prompt:
+  set OPENALGO_API_KEY=your_64_char_key
+
+Linux/Mac:
+  export OPENALGO_API_KEY="your_64_char_key"
+
+STEP 3: Run Fixed Script
+------------------------
+  python strategies/examples/sandboxtest_fixed.py
+
+STEP 4: Verify Success
+----------------------
+You should see:
+  ✓ Client initialized successfully
+  ✓ BUY order placed successfully!
+  ✓ SELL order placed successfully!
+  ✓ Sandbox Test Completed
+
+================================================================================
+                        DOCUMENTATION CREATED
+================================================================================
+
+📖 MAIN GUIDES (Read These):
+  1. START_HERE.md                 ← You are here
+  2. API_KEY_SETUP_GUIDE.md        ← Complete setup
+  3. FIX_YOUR_SCRIPT.md            ← How to fix your script
+  4. QUICK_REFERENCE.md            ← API methods & constants
+
+🔧 WORKING EXAMPLES:
+  5. strategies/examples/sandboxtest_fixed.py  ← Use this script
+  6. SANDBOX_TEST_EXAMPLE.md                   ← Test walkthrough
+
+🆘 TROUBLESHOOTING:
+  7. APIKEY_VALIDATION_FIX.md      ← Detailed troubleshooting
+  8. README_API_KEY_ERROR.md       ← Summary
+
+================================================================================
+                        KEY DIFFERENCES
+================================================================================
+
+BROKER API KEY vs OPENALGO API KEY:
+
+Broker API Key (wxyz123):
+  - Purpose: Authenticate with broker
+  - Length: Varies (8-256 characters)
+  - Format: Broker-specific
+  - Where: Broker's website/app
+  - ❌ NOT what you need for OpenAlgo SDK
+
+OpenAlgo API Key (0aac0bae...fae9a165):
+  - Purpose: Authenticate with OpenAlgo platform
+  - Length: Always 64 characters
+  - Format: Hexadecimal (0-9, a-f)
+  - Where: OpenAlgo /apikey page
+  - ✅ THIS is what you need!
+
+================================================================================
+                        BEFORE & AFTER
+================================================================================
+
+BEFORE (❌ Wrong):
+------------------
+BROKER_API_KEY = wxyz123  # Only 8 characters!
+
+client = api(
+    api_key='wxyz123',  # ❌ Fails validation
+    host='http://127.0.0.1:5000'
+)
+
+AFTER (✅ Correct):
+-------------------
+import os
+
+OPENALGO_API_KEY = os.getenv('OPENALGO_API_KEY')  # 64 characters
+
+if not OPENALGO_API_KEY or len(OPENALGO_API_KEY) != 64:
+    print("ERROR: Invalid API key")
+    exit(1)
+
+client = api(
+    api_key=OPENALGO_API_KEY,  # ✅ Valid 64-char key
+    host='http://127.0.0.1:5000'
+)
+
+================================================================================
+                        VALIDATION CHECKLIST
+================================================================================
+
+Before running your script:
+
+  ☐ OpenAlgo is running (http://127.0.0.1:5000 loads)
+  ☐ You're logged in with broker credentials
+  ☐ API key is copied from /apikey page
+  ☐ API key is exactly 64 characters
+  ☐ API key is hexadecimal (0-9, a-f only)
+  ☐ Environment variable is set
+  ☐ No extra spaces or quotes in key
+  ☐ Broker shows "Connected" status
+
+================================================================================
+                        COMMON ERRORS & FIXES
+================================================================================
+
+Error: "Length must be between 1 and 256"
+  → Fix: Get valid 64-char key from /apikey
+
+Error: "Unauthorized"
+  → Fix: Regenerate API key at /apikey
+
+Error: "Connection refused"
+  → Fix: Start OpenAlgo, verify port 5000
+
+Error: Environment variable not set
+  → Fix: Set before running: export OPENALGO_API_KEY=...
+
+Error: API key too short
+  → Fix: Must be exactly 64 characters
+
+================================================================================
+                        NEXT STEPS
+================================================================================
+
+1. Read: API_KEY_SETUP_GUIDE.md (5 minutes)
+2. Get: Your API key from http://127.0.0.1:5000/apikey (1 minute)
+3. Set: Environment variable (1 minute)
+4. Run: python strategies/examples/sandboxtest_fixed.py (1 minute)
+5. Verify: Check output shows ✓ success messages (2 minutes)
+
+TOTAL TIME: 10 minutes
+
+================================================================================
+                        FILE LOCATIONS
+================================================================================
+
+All files are in: D:\OpenAlgo\openalgo\
+
+START_HERE.md                    ← You are here
+API_KEY_SETUP_GUIDE.md           ← Read this next
+FIX_YOUR_SCRIPT.md               ← How to fix your script
+QUICK_REFERENCE.md               ← API methods & constants
+SANDBOX_TEST_EXAMPLE.md          ← Test walkthrough
+APIKEY_VALIDATION_FIX.md         ← Troubleshooting
+README_API_KEY_ERROR.md          ← Summary
+SOLUTION_SUMMARY.txt             ← This file
+
+strategies/examples/
+  └── sandboxtest_fixed.py       ← Use this script
+
+================================================================================
+                        REFERENCE DOCS
+================================================================================
+
+For more information:
+  - docs/prompt/openalgo python sdk.md      (Full SDK reference)
+  - docs/prompt/order-constants.md          (Exchange/product codes)
+  - docs/prompt/symbol-format.md            (Symbol formats)
+  - docs/prompt/websockets-format.md        (WebSocket format)
+  - docs/INDEX.md                           (Documentation map)
+
+================================================================================
+                        SECURITY NOTES
+================================================================================
+
+✅ DO:
+  - Use environment variables for API keys
+  - Regenerate keys if compromised
+  - Rotate keys periodically
+  - Use HTTPS in production
+
+❌ DON'T:
+  - Hardcode API keys in scripts
+  - Commit keys to git
+  - Share keys with others
+  - Use same key across systems
+
+================================================================================
+                        SUMMARY
+================================================================================
+
+Your Problem:    API key validation error (too short)
+Your Solution:   Use valid 64-character OpenAlgo API key
+Your Time:       5 minutes to fix
+Your Next Step:  Read API_KEY_SETUP_GUIDE.md
+
+Status: ✅ Ready to use
+
+================================================================================

@@ -1,0 +1,283 @@
+================================================================================
+                    SMART BOT WITH TIME LIMITS
+================================================================================
+
+WHAT'S NEW?
+  ✅ Time-based trading controls
+  ✅ No new orders after 2:45 PM
+  ✅ Market hours awareness
+  ✅ Intelligent order management
+  ✅ Professional trading pattern
+
+================================================================================
+                    TRADING HOURS
+================================================================================
+
+Market Open:      9:15 AM IST
+Last Order Time:  2:45 PM IST (14:45)
+Market Close:     3:30 PM IST (15:30)
+
+Timeline:
+  9:15 AM  ─────────────────────  2:45 PM  ─  3:30 PM
+   ↑                               ↑           ↑
+   Market Opens                    No New      Market
+   Orders Placed                   Orders      Closes
+
+================================================================================
+                    WHAT HAPPENS WHEN
+================================================================================
+
+9:15 AM - 2:45 PM (Morning Trading):
+  ✅ Place new BUY orders
+  ✅ Place new SELL orders
+  ✅ Monitor existing orders
+  ✅ Execute trades
+
+2:45 PM - 3:30 PM (Afternoon Monitoring):
+  ❌ NO new BUY orders
+  ❌ NO new SELL orders
+  ✅ Monitor existing orders
+  ✅ Let pending orders execute
+  ✅ Close out positions
+
+After 3:30 PM (Market Closed):
+  ❌ Market closed
+  ✅ Wait for next trading day
+
+================================================================================
+                    TWO SMART BOTS
+================================================================================
+
+BOT 1: EQUITY TRADING (SBIN, RELIANCE, etc.)
+  File: continuous_trading_bot_smart.py
+  Command: python strategies/examples/continuous_trading_bot_smart.py
+  
+  Features:
+    - NSE equity trading
+    - 5 rupees offset
+    - 10 rupees profit target
+    - Smart order placement
+    - Time limits (9:15 AM - 2:45 PM)
+
+BOT 2: NIFTY FUTURES
+  File: continuous_trading_bot_nifty_smart.py
+  Command: python strategies/examples/continuous_trading_bot_nifty_smart.py
+  
+  Features:
+    - NFO NIFTY futures trading
+    - 5 points offset
+    - 10 points profit target
+    - Smart order placement
+    - Time limits (9:15 AM - 2:45 PM)
+
+================================================================================
+                    RUN THE BOTS
+================================================================================
+
+EQUITY BOT:
+  python strategies/examples/continuous_trading_bot_smart.py
+
+NIFTY BOT:
+  python strategies/examples/continuous_trading_bot_nifty_smart.py
+
+WITH CUSTOM SYMBOL (Equity):
+  export SYMBOL="RELIANCE"
+  python strategies/examples/continuous_trading_bot_smart.py
+
+WITH CUSTOM NIFTY EXPIRY:
+  Edit continuous_trading_bot_nifty_smart.py
+  Change: SYMBOL = 'NIFTY25OCT26FUT'
+
+================================================================================
+                    EXPECTED OUTPUT
+================================================================================
+
+MORNING (9:15 AM - 2:45 PM):
+  [BOT] Starting smart trading loop...
+  [BOT] Trading Hours: 09:15 - 15:30 IST
+  [BOT] Last Order Time: 14:45 IST
+  
+  [PRICE] Current LTP: Rs.979.70
+  [ORDER] Placing BUY order at Rs.974.70...
+  [OK] BUY order placed!
+  
+  [PRICE] Current LTP: Rs.979.80
+  [PRICE] Current LTP: Rs.979.60
+  
+  [FILLED] BUY Order FILLED at Rs.974.70
+  
+  [ORDER] Placing BUY order at Rs.974.80...
+  [OK] BUY order placed!
+  
+  [STATUS] BUY Orders: Placed=2 | Filled=1
+  [STATUS] SELL Orders: Placed=2 | Filled=1
+  [STATUS] Total Trades: 2
+
+AFTERNOON (2:45 PM - 3:30 PM):
+  [PRICE] Current LTP: Rs.980.50
+  
+  [TIME LIMIT] 14:45:30 - No new orders after 2:45 PM. Monitoring only...
+  
+  [PRICE] Current LTP: Rs.980.60
+  [PRICE] Current LTP: Rs.980.70
+  
+  [FILLED] SELL Order FILLED at Rs.985.70
+  
+  [STATUS] BUY Orders: Placed=3 | Filled=2
+  [STATUS] SELL Orders: Placed=3 | Filled=3
+  [STATUS] Total Trades: 5
+  
+  [MARKET CLOSED] 15:30:45 - Market is closed. Waiting for market open...
+
+================================================================================
+                    KEY FEATURES
+================================================================================
+
+✅ Smart Order Placement
+   - Only places when previous order fills
+   - No spam orders
+   - Intelligent execution tracking
+
+✅ Time-Based Controls
+   - Respects market hours
+   - No new orders after 2:45 PM
+   - Professional trading pattern
+
+✅ Continuous Monitoring
+   - Checks price every 5 seconds
+   - Checks order status every 10 seconds
+   - Real-time statistics
+
+✅ Risk Management
+   - Stop loss limits
+   - Profit targets
+   - Time-based position closure
+
+================================================================================
+                    CONFIGURATION
+================================================================================
+
+DEFAULT SETTINGS (Both Bots):
+
+Trading Hours:
+  MARKET_OPEN_HOUR = 9
+  MARKET_OPEN_MINUTE = 15
+  MARKET_CLOSE_HOUR = 15
+  MARKET_CLOSE_MINUTE = 30
+  LAST_ORDER_HOUR = 14
+  LAST_ORDER_MINUTE = 45
+
+Risk Management:
+  STOPLOSS_AMOUNT = 5.0
+  PROFIT_TARGET = 10.0
+  PRICE_OFFSET = 5.0
+
+Monitoring:
+  PRICE_CHECK_INTERVAL = 5
+  ORDER_STATUS_CHECK_INTERVAL = 10
+
+CUSTOMIZE TIME LIMITS:
+
+To change last order time to 3:00 PM:
+  LAST_ORDER_HOUR = 15
+  LAST_ORDER_MINUTE = 0
+
+To change last order time to 2:30 PM:
+  LAST_ORDER_HOUR = 14
+  LAST_ORDER_MINUTE = 30
+
+To change market close to 4:00 PM:
+  MARKET_CLOSE_HOUR = 16
+  MARKET_CLOSE_MINUTE = 0
+
+================================================================================
+                    EQUITY BOT SETTINGS
+================================================================================
+
+Symbol: SBIN (can be changed)
+Exchange: NSE
+Quantity: 1 share
+Product: MIS (Intraday)
+
+Stop Loss: 5 rupees
+Profit Target: 10 rupees
+Price Offset: 5 rupees
+
+Change Symbol:
+  Edit: SYMBOL = 'RELIANCE'
+  Or: export SYMBOL="RELIANCE"
+
+================================================================================
+                    NIFTY BOT SETTINGS
+================================================================================
+
+Symbol: NIFTY25SEP26FUT (current expiry)
+Exchange: NFO
+Quantity: 1 lot
+Product: NRML (Normal)
+
+Stop Loss: 5 points
+Profit Target: 10 points
+Price Offset: 5 points
+
+Change Expiry:
+  Edit: SYMBOL = 'NIFTY25OCT26FUT'
+  Available: NIFTY25SEP26FUT, NIFTY25OCT26FUT, etc.
+
+================================================================================
+                    BENEFITS
+================================================================================
+
+✅ Risk Management
+   - No new orders near market close
+   - Reduces overnight risk
+   - Allows time to close positions
+
+✅ Regulatory Compliance
+   - Follows market hours
+   - Respects trading windows
+   - Professional pattern
+
+✅ Operational Safety
+   - Avoids last-minute orders
+   - Gives time for execution
+   - Prevents rushed decisions
+
+✅ Better Statistics
+   - Clear trading window
+   - Easier to track results
+   - Professional reporting
+
+================================================================================
+                    STOPPING THE BOT
+================================================================================
+
+Press: Ctrl+C
+
+Output:
+  [BOT] Shutting down...
+  [STATUS] Current Price: Rs.980.50
+  [STATUS] BUY Orders: Placed=5 | Filled=4
+  [STATUS] SELL Orders: Placed=5 | Filled=4
+  [STATUS] Total Trades: 8
+  [BOT] Trading stopped
+
+================================================================================
+                    SUMMARY
+================================================================================
+
+What:     Smart Bots with Time Limits
+Why:      Intelligent trading with risk management
+How:      Smart order placement + time-based controls
+Result:   Professional, safe, efficient trading
+Status:   ✅ Ready to use
+
+Equity Bot:  python continuous_trading_bot_smart.py
+NIFTY Bot:   python continuous_trading_bot_nifty_smart.py
+
+Time Limits: 9:15 AM - 2:45 PM (new orders)
+             2:45 PM - 3:30 PM (monitoring only)
+
+Features:    Smart placement, time controls, risk management
+
+================================================================================

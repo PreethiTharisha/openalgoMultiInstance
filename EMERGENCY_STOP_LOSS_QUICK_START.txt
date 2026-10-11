@@ -1,0 +1,272 @@
+================================================================================
+                    EMERGENCY STOP LOSS - QUICK START
+================================================================================
+
+WHAT IS IT?
+  Automatic protection that squares off ALL positions if any position hits 10% loss
+
+WHY USE IT?
+  ✅ Protects capital automatically
+  ✅ No manual intervention needed
+  ✅ Prevents catastrophic losses
+  ✅ Professional risk management
+
+HOW IT WORKS?
+  1. Bot monitors all open positions continuously
+  2. Calculates loss % for each position
+  3. If ANY position hits 10% loss → EMERGENCY TRIGGERED
+  4. Squares off ALL positions immediately using MARKET orders
+  5. Stops placing new orders
+  6. Continues monitoring until market close
+
+================================================================================
+                    LOSS CALCULATION
+================================================================================
+
+BUY POSITION:
+  Loss % = ((Entry Price - Current Price) / Entry Price) × 100
+  
+  Example:
+    Entry: 100
+    Current: 90
+    Loss: ((100 - 90) / 100) × 100 = 10%
+
+SELL POSITION:
+  Loss % = ((Current Price - Entry Price) / Entry Price) × 100
+  
+  Example:
+    Entry: 100
+    Current: 110
+    Loss: ((110 - 100) / 100) × 100 = 10%
+
+================================================================================
+                    EXAMPLE SCENARIO
+================================================================================
+
+[PRICE] Current LTP: 979.70
+
+[ORDER] Placing BUY order at 974.70...
+[OK] BUY order placed!
+     Emergency Stop Loss: 10%
+
+[FILLED] BUY Order FILLED at 974.70
+
+[PRICE] Current LTP: 977.00
+[STATUS] Position Details:
+         BUY @ 974.70 | Loss: 0.24%
+
+[PRICE] Current LTP: 960.00
+[STATUS] Position Details:
+         BUY @ 974.70 | Loss: 1.51%
+
+[PRICE] Current LTP: 875.00
+[STATUS] Position Details:
+         BUY @ 974.70 | Loss: 10.20%
+
+[EMERGENCY] Position 26091589228293 loss: 10.20% (exceeds 10%)
+
+================================================================================
+[EMERGENCY STOP] Squaring off all positions immediately!
+================================================================================
+
+[SQUARE OFF] Closing position 26091589228293...
+[OK] Square off order placed!
+     Order ID: 26091589228294
+     Action: SELL
+     Entry Price: 974.70
+     Current Price: 875.00
+     Loss: 10.20%
+
+[STATUS] EMERGENCY STOP TRIGGERED - No new orders!
+
+[FILLED] SELL Order FILLED at 875.00
+
+[STATUS] Open Positions: 0
+[STATUS] EMERGENCY STOP TRIGGERED - No new orders!
+
+================================================================================
+                    CONFIGURATION
+================================================================================
+
+DEFAULT SETTINGS:
+
+  MAX_LOSS_PERCENT = 10.0  # Stop all trading if loss exceeds 10%
+  EMERGENCY_STOP_LOSS = True  # Enable emergency stop loss
+
+CUSTOMIZE:
+
+  Change to 5% loss:
+    MAX_LOSS_PERCENT = 5.0
+
+  Change to 15% loss:
+    MAX_LOSS_PERCENT = 15.0
+
+  Disable emergency stop loss:
+    EMERGENCY_STOP_LOSS = False
+
+================================================================================
+                    TWO SMART BOTS WITH EMERGENCY STOP LOSS
+================================================================================
+
+BOT 1: EQUITY TRADING
+  File: continuous_trading_bot_smart.py
+  Command: python strategies/examples/continuous_trading_bot_smart.py
+  
+  Features:
+    - NSE equity trading (SBIN, RELIANCE, etc.)
+    - Smart order placement (only when previous fills)
+    - Time limits (9:15 AM - 2:45 PM)
+    - Emergency stop loss (10%)
+
+BOT 2: NIFTY FUTURES
+  File: continuous_trading_bot_nifty_smart.py
+  Command: python strategies/examples/continuous_trading_bot_nifty_smart.py
+  
+  Features:
+    - NFO NIFTY futures trading
+    - Smart order placement (only when previous fills)
+    - Time limits (9:15 AM - 2:45 PM)
+    - Emergency stop loss (10%)
+
+================================================================================
+                    RUN THE BOTS
+================================================================================
+
+EQUITY BOT:
+  python strategies/examples/continuous_trading_bot_smart.py
+
+NIFTY BOT:
+  python strategies/examples/continuous_trading_bot_nifty_smart.py
+
+================================================================================
+                    KEY FEATURES
+================================================================================
+
+✅ Smart Order Placement
+   - Only places when previous order fills
+   - No spam orders
+   - Intelligent execution tracking
+
+✅ Time-Based Controls
+   - Respects market hours (9:15 AM - 3:30 PM)
+   - No new orders after 2:45 PM
+   - Professional trading pattern
+
+✅ Emergency Stop Loss
+   - Monitors all positions continuously
+   - Calculates loss % for each position
+   - Squares off ALL positions if any hits 10% loss
+   - Uses MARKET orders for immediate execution
+   - Stops placing new orders
+
+✅ Continuous Monitoring
+   - Checks price every 5 seconds
+   - Checks order status every 10 seconds
+   - Real-time statistics
+
+✅ Risk Management
+   - Stop loss limits
+   - Profit targets
+   - Time-based position closure
+   - Emergency capital protection
+
+================================================================================
+                    POSITION TRACKING
+================================================================================
+
+The bot tracks all open positions:
+
+  Position 1: BUY @ 974.70 | Loss: 0.50%
+  Position 2: SELL @ 984.70 | Loss: 0.30%
+
+When emergency stop is triggered:
+
+  [SQUARE OFF] Closing position 26091589228293...
+  [SQUARE OFF] Closing position 26091514280815...
+
+All positions closed immediately using MARKET orders.
+
+================================================================================
+                    STATUS DISPLAY
+================================================================================
+
+[STATUS] 2026-09-15 13:25:02
+[STATUS] Current Price: Rs.979.70
+[STATUS] BUY Orders: Placed=2 | Filled=1
+[STATUS] SELL Orders: Placed=2 | Filled=1
+[STATUS] Total Trades: 2
+[STATUS] Open Positions: 2
+[STATUS] Position Details:
+         BUY @ Rs.974.70 | Loss: 0.50%
+         SELL @ Rs.984.70 | Loss: 0.30%
+[STATUS] Last BUY Order: 26091589228293 @ Rs.974.70
+[STATUS] Last SELL Order: 26091514280815 @ Rs.984.70
+
+================================================================================
+                    BENEFITS
+================================================================================
+
+✅ Automatic Risk Management
+   - No manual intervention needed
+   - Immediate response to losses
+   - Prevents catastrophic losses
+
+✅ Protects Capital
+   - Limits maximum loss to 10%
+   - Squares off all positions
+   - Stops further damage
+
+✅ Professional Trading
+   - Risk-aware strategy
+   - Proper position management
+   - Disciplined execution
+
+✅ Peace of Mind
+   - Automatic protection
+   - No need to monitor constantly
+   - Handles worst-case scenarios
+
+================================================================================
+                    IMPORTANT NOTES
+================================================================================
+
+⚠️ MARKET ORDERS
+   - Uses MARKET orders for immediate execution
+   - Ensures positions are closed quickly
+   - May execute at slightly worse prices
+
+⚠️ LOSS CALCULATION
+   - Based on entry price vs current price
+   - Percentage loss, not absolute loss
+   - Calculated in real-time
+
+⚠️ EMERGENCY TRIGGER
+   - Triggers when ANY position hits 10% loss
+   - Squares off ALL positions immediately
+   - Stops placing new orders
+
+⚠️ NO NEW ORDERS
+   - After emergency stop, no new orders
+   - Only monitors existing positions
+   - Must restart bot for new trading
+
+================================================================================
+                    SUMMARY
+================================================================================
+
+Feature:          Emergency Stop Loss
+Trigger:          Any position hits 10% loss
+Action:           Square off ALL positions
+Order Type:       MARKET (immediate)
+New Orders:       Stopped immediately
+Monitoring:       Continues until close
+Customizable:     Yes (MAX_LOSS_PERCENT)
+Default:          Enabled (10%)
+
+Status:           ✅ Ready to use!
+
+Both smart bots now have automatic emergency stop loss protection.
+They will immediately square off all positions if any position hits 10% loss,
+protecting your capital!
+
+================================================================================

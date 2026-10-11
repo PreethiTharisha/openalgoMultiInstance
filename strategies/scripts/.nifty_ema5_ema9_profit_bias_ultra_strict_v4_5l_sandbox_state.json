@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "updated_at": "2026-10-05T13:38:24.462705+05:30",
+  "positions": [],
+  "last_traded_regime": "BULLISH",
+  "reentry_direction": null,
+  "reentry_armed_at": null,
+  "reentry_used_for_regime": null,
+  "risk_day": "2026-10-05",
+  "daily_realized_pnl": -1940.249999999992,
+  "daily_trade_count": 9,
+  "consecutive_losses": 0,
+  "daily_block_reason": null
+}

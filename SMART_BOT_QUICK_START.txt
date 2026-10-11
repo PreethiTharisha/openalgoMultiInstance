@@ -1,0 +1,245 @@
+================================================================================
+                    SMART CONTINUOUS TRADING BOT
+================================================================================
+
+WHAT IS IT?
+  Intelligent trading bot that:
+  ✅ Places orders at calculated prices
+  ✅ Waits for order execution
+  ✅ Monitors price continuously
+  ✅ Only places new orders when needed
+  ✅ Avoids spam orders
+  ✅ Tracks statistics
+
+================================================================================
+                    HOW IT WORKS
+================================================================================
+
+STEP 1: Get Current Price
+  Current LTP: Rs.980.90
+
+STEP 2: Calculate Order Prices
+  BUY Price:  Rs.975.90  (Current - 5)
+  SELL Price: Rs.985.90  (Current + 5)
+
+STEP 3: Place Orders
+  Place BUY order at Rs.975.90
+  Place SELL order at Rs.985.90
+  Status: PENDING
+
+STEP 4: Monitor Price (Every 5 seconds)
+  Check: Is price still 980.90?
+  If price moves 2+ Rs, consider new order
+
+STEP 5: Check Order Status (Every 10 seconds)
+  Is BUY order filled? If yes, place new order
+  Is SELL order filled? If yes, place new order
+
+STEP 6: Place New Orders (Only when needed)
+  If previous order filled → Place new order
+  If price moved 2+ Rs → Place new order
+  Otherwise → Wait and monitor
+
+REPEAT: Cycle continues...
+
+================================================================================
+                    BASIC BOT vs SMART BOT
+================================================================================
+
+BASIC BOT (❌ Problem):
+  [11:00:00] Place BUY order at 245
+  [11:00:30] Place BUY order at 245 (again!)
+  [11:01:00] Place BUY order at 245 (again!)
+  [11:01:30] Place BUY order at 245 (again!)
+  Result: 25 orders placed, none filled!
+
+SMART BOT (✅ Solution):
+  [11:00:00] Place BUY order at 245
+  [11:00:05] Monitor: Order PENDING → Wait
+  [11:00:10] Monitor: Order PENDING → Wait
+  [11:05:00] Monitor: Order FILLED → Success!
+  [11:05:05] Place NEW BUY order at 240
+  Result: 1 order filled, then new order placed!
+
+================================================================================
+                    RUN THE BOT
+================================================================================
+
+Command:
+  python strategies/examples/continuous_trading_bot_smart.py
+
+Expected Output:
+  [BOT] Smart Continuous Trading Bot Started
+  [PRICE] Current LTP: Rs.980.90
+  [ORDER] Placing BUY order at Rs.975.90...
+  [OK] BUY order placed!
+  [ORDER] Placing SELL order at Rs.985.90...
+  [OK] SELL order placed!
+  [STATUS] BUY Orders: Placed=1 | Filled=0
+  [STATUS] SELL Orders: Placed=1 | Filled=0
+
+================================================================================
+                    MONITORING BEHAVIOR
+================================================================================
+
+PRICE MONITORING (Every 5 seconds):
+  [PRICE] Current LTP: Rs.980.90
+  [PRICE] Current LTP: Rs.981.00
+  [PRICE] Current LTP: Rs.981.50
+
+ORDER STATUS MONITORING (Every 10 seconds):
+  [FILLED] BUY Order 26091596939790 FILLED at Rs.975.90
+  [FILLED] SELL Order 26091528333781 FILLED at Rs.985.90
+
+INTELLIGENT ORDER PLACEMENT:
+  [SIGNAL] Price moved 6.10 Rs from last BUY order
+  [ORDER] Placing BUY order at Rs.976.00...
+  [OK] BUY order placed!
+
+================================================================================
+                    CONFIGURATION
+================================================================================
+
+Default Settings:
+  STOPLOSS_AMOUNT = 5.0          # 5 rupees loss
+  PROFIT_TARGET = 10.0           # 10 rupees profit
+  PRICE_OFFSET = 5.0             # Place order 5 Rs away
+  PRICE_CHECK_INTERVAL = 5       # Check price every 5 seconds
+  ORDER_STATUS_CHECK_INTERVAL = 10  # Check status every 10 seconds
+  SIGNIFICANT_PRICE_MOVE = 2.0   # If price moves 2+ Rs, place new order
+
+For Scalping (Fast):
+  PRICE_OFFSET = 2.0
+  PROFIT_TARGET = 5.0
+  STOPLOSS_AMOUNT = 2.0
+  PRICE_CHECK_INTERVAL = 2
+  SIGNIFICANT_PRICE_MOVE = 1.0
+
+For Swing Trading (Slow):
+  PRICE_OFFSET = 10.0
+  PROFIT_TARGET = 20.0
+  STOPLOSS_AMOUNT = 10.0
+  PRICE_CHECK_INTERVAL = 30
+  SIGNIFICANT_PRICE_MOVE = 5.0
+
+================================================================================
+                    STATISTICS TRACKING
+================================================================================
+
+The bot tracks:
+  ✅ BUY Orders: Placed count and Filled count
+  ✅ SELL Orders: Placed count and Filled count
+  ✅ Total Trades: Total number of filled orders
+  ✅ Current Price: Real-time market price
+  ✅ Last Orders: ID and price of last BUY/SELL orders
+
+Example Output:
+  [STATUS] Current Price: Rs.980.90
+  [STATUS] BUY Orders: Placed=5 | Filled=4
+  [STATUS] SELL Orders: Placed=5 | Filled=4
+  [STATUS] Total Trades: 8
+  [STATUS] Last BUY Order: 26091596939790 @ Rs.975.90
+  [STATUS] Last SELL Order: 26091528333781 @ Rs.985.90
+
+================================================================================
+                    KEY DIFFERENCES
+================================================================================
+
+Feature              Basic Bot           Smart Bot
+-----------          ---------           ---------
+Order Placement      Continuous (spam)   Intelligent (monitored)
+Execution Check      No                  Yes
+Price Monitoring     No                  Yes (every 5s)
+Order Status Check   No                  Yes (every 10s)
+New Order Logic      Always place        Only when needed
+Statistics           Basic count         Detailed tracking
+Efficiency           Low                 High
+Real Orders          Many pending        Few, mostly filled
+
+================================================================================
+                    ADVANTAGES
+================================================================================
+
+✅ No spam orders - Only places when needed
+✅ Monitors execution - Knows when orders fill
+✅ Tracks price - Aware of market movement
+✅ Intelligent placement - Places new orders smartly
+✅ Better statistics - Detailed tracking
+✅ More realistic - Fewer, better-quality orders
+✅ Efficient - Less API calls
+✅ Professional - Proper order management
+
+================================================================================
+                    USE CASES
+================================================================================
+
+Day Trading:
+  - Fast price movements
+  - Quick order execution
+  - Multiple trades per day
+  - Use: continuous_trading_bot_smart.py
+
+Scalping:
+  - Very tight stops (2-3 Rs)
+  - Quick profits (5-10 Rs)
+  - High frequency
+  - Customize: PRICE_OFFSET = 2.0, PROFIT_TARGET = 5.0
+
+Swing Trading:
+  - Wider stops (10-20 Rs)
+  - Larger profits (20-50 Rs)
+  - Fewer, larger trades
+  - Customize: PRICE_OFFSET = 10.0, PROFIT_TARGET = 20.0
+
+================================================================================
+                    STOPPING THE BOT
+================================================================================
+
+Press: Ctrl+C
+
+Output:
+  [BOT] Shutting down...
+  [STATUS] Current Price: Rs.985.50
+  [STATUS] BUY Orders: Placed=5 | Filled=4
+  [STATUS] SELL Orders: Placed=5 | Filled=4
+  [STATUS] Total Trades: 8
+  [BOT] Trading stopped
+
+================================================================================
+                    IMPORTANT NOTES
+================================================================================
+
+⚠️  Limit Orders Only
+    Orders are placed at LIMIT prices
+    May not execute if price doesn't reach
+    Check dashboard to see pending orders
+
+⚠️  Sandbox Mode
+    All orders are in "analyze" mode
+    No real money is used
+    Good for testing
+
+⚠️  Market Hours
+    Orders only execute during market hours
+    Outside hours, orders remain pending
+
+⚠️  Broker Connectivity
+    Ensure broker is connected
+    Check login status in OpenAlgo
+    Verify market data is flowing
+
+================================================================================
+                    SUMMARY
+================================================================================
+
+What:     Smart Continuous Trading Bot
+Why:      Intelligent order placement and monitoring
+How:      Monitors price, checks order status, places new orders smartly
+Result:   Fewer orders, better execution, professional trading
+Status:   ✅ Ready to use
+
+Command:  python strategies/examples/continuous_trading_bot_smart.py
+Time:     ~5 minutes to first trade
+Result:   Intelligent, monitored trading
+
+================================================================================
